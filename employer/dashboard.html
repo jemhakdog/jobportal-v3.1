@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobConnect - Employer Dashboard</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #f8f9fc;
+            --accent-color: #2e59d9;
+            --dark-color: #5a5c69;
+        }
+        
+        body {
+            background-color: var(--secondary-color);
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .sidebar {
+            background: linear-gradient(180deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 5px;
+            border-radius: 5px;
+            padding: 10px 15px;
+        }
+        
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .sidebar .nav-link i {
+            margin-right: 10px;
+        }
+        
+        .topbar {
+            height: 70px;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            background-color: white;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .candidate-card .candidate-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .badge-new {
+            background-color: #e6f7ee;
+            color: #28a745;
+        }
+        
+        .badge-featured {
+            background-color: #e6f0ff;
+            color: #2c3e50;
+        }
+        
+        .search-box {
+            border-radius: 20px;
+            padding-left: 20px;
+            border: 1px solid #e3e6f0;
+        }
+        
+        .search-btn {
+            border-radius: 20px;
+            padding: 8px 20px;
+        }
+        
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        
+        .stat-card {
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .stat-card .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+             <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 d-md-block sidebar collapse bg-primary">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <h4 class="text-white">JobConnect</h4>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="dashboard.html">
+                                <i class="fas fa-fw fa-tachometer-alt"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="job_posting.html">
+                                <i class="fas fa-fw fa-briefcase"></i>
+                                Job Postings
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="candidates.html">
+                                <i class="fas fa-fw fa-users"></i>
+                                Candidates
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-fw fa-calendar"></i>
+                                Interviews
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="interviews.html">
+                                <i class="fas fa-fw fa-bell"></i>
+                                Alerts
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="interviews.html">
+                                <i class="fas fa-fw fa-building"></i>
+                                Company Profile
+                            </a>
+                        </li>
+                        <li class="nav-item mt-4">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-fw fa-sign-out-alt"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- Topbar -->
+                <nav class="navbar topbar mb-4">
+                    <div class="container-fluid">
+                        <form class="d-flex w-50">
+                            <input class="form-control search-box me-2" type="search" placeholder="Search candidates, jobs..." aria-label="Search">
+                            <button class="btn btn-primary search-btn" type="submit">Search</button>
+                        </form>
+                        <div class="d-flex align-items-center">
+                            <div class="dropdown me-3">
+                                <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-bell"></i>
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        3
+                                    </span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+                                    <li><a class="dropdown-item" href="#">New applications</a></li>
+                                    <li><a class="dropdown-item" href="#">Interview requests</a></li>
+                                    <li><a class="dropdown-item" href="#">Messages</a></li>
+                                </ul>
+                            </div>
+                            <div class="dropdown">
+                                <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="profile-img me-2">
+                                    <span class="d-none d-md-inline">TechCorp Inc.</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="#">Company Profile</a></li>
+                                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Dashboard Content -->
+                <div class="row mb-4">
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card stat-card h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            Active Jobs</div>
+                                        <div class="stat-value text-gray-800">8</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-briefcase fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card stat-card h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            New Applications</div>
+                                        <div class="stat-value text-gray-800">24</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-file-alt fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card stat-card h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            Interviews Scheduled</div>
+                                        <div class="stat-value text-gray-800">5</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-calendar-check fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card stat-card h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            Profile Views</div>
+                                        <div class="stat-value text-gray-800">1,245</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-eye fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Recent Applications -->
+                    <div class="col-lg-8 mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Recent Applications</h6>
+                                <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+                            </div>
+                            <div class="card-body">
+                                <div class="candidate-card mb-4 p-3">
+                                    <div class="d-flex align-items-start">
+                                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Candidate" class="candidate-img me-3">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">Sarah Johnson</h5>
+                                            <p class="mb-1 text-muted">Senior UX Designer · 5 years experience</p>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <span class="badge badge-new me-2">New</span>
+                                                <span class="badge badge-featured">Featured</span>
+                                            </div>
+                                            <p class="mb-2">Applied for: Senior UX Designer position</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <small class="text-muted">Applied 2 days ago</small>
+                                                <div>
+                                                    <button class="btn btn-sm btn-outline-primary me-2">View Profile</button>
+                                                    <button class="btn btn-sm btn-primary">Schedule Interview</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="candidate-card mb-4 p-3">
+                                    <div class="d-flex align-items-start">
+                                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Candidate" class="candidate-img me-3">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">Michael Chen</h5>
+                                            <p class="mb-1 text-muted">Frontend Developer · 3 years experience</p>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <span class="badge badge-new me-2">New</span>
+                                            </div>
+                                            <p class="mb-2">Applied for: Frontend Developer position</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <small class="text-muted">Applied 1 day ago</small>
+                                                <div>
+                                                    <button class="btn btn-sm btn-outline-primary me-2">View Profile</button>
+                                                    <button class="btn btn-sm btn-primary">Schedule Interview</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="candidate-card p-3">
+                                    <div class="d-flex align-items-start">
+                                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Candidate" class="candidate-img me-3">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">Emily Rodriguez</h5>
+                                            <p class="mb-1 text-muted">Product Manager · 7 years experience</p>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <span class="badge badge-featured">Featured</span>
+                                            </div>
+                                            <p class="mb-2">Applied for: Product Manager position</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <small class="text-muted">Applied 3 days ago</small>
+                                                <div>
+                                                    <button class="btn btn-sm btn-outline-primary me-2">View Profile</button>
+                                                    <button class="btn btn-sm btn-primary">Schedule Interview</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Sidebar -->
+                    <div class="col-lg-4 mb-4">
+                        <!-- Upcoming Interviews -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Upcoming Interviews</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <strong>Sarah Johnson - UX Designer</strong>
+                                        <span class="badge bg-success">Confirmed</span>
+                                    </div>
+                                    <div class="d-flex align-items-center text-muted mb-1">
+                                        <i class="fas fa-calendar me-2"></i>
+                                        <span>Tomorrow, 10:00 AM</span>
+                                    </div>
+                                    <div class="d-flex align-items-center text-muted">
+                                        <i class="fas fa-video me-2"></i>
+                                        <span>Google Meet</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <strong>David Wilson - Backend Dev</strong>
+                                        <span class="badge bg-warning text-dark">Pending</span>
+                                    </div>
+                                    <div class="d-flex align-items-center text-muted mb-1">
+                                        <i class="fas fa-calendar me-2"></i>
+                                        <span>June 16, 3:00 PM</span>
+                                    </div>
+                                    <div class="d-flex align-items-center text-muted">
+                                        <i class="fas fa-phone me-2"></i>
+                                        <span>Phone Interview</span>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <strong>Lisa Kim - Data Scientist</strong>
+                                        <span class="badge bg-info">Rescheduled</span>
+                                    </div>
+                                    <div class="d-flex align-items-center text-muted mb-1">
+                                        <i class="fas fa-calendar me-2"></i>
+                                        <span>June 19, 1:30 PM</span>
+                                    </div>
+                                    <div class="d-flex align-items-center text-muted">
+                                        <i class="fas fa-video me-2"></i>
+                                        <span>Zoom</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Company Profile Strength -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Company Profile Strength</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>Basic Information</span>
+                                        <span>100%</span>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>Company Description</span>
+                                        <span>80%</span>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>Benefits</span>
+                                        <span>60%</span>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 60%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>Photos</span>
+                                        <span>40%</span>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 40%"></div>
+                                    </div>
+                                </div>
+                                
+                                <a href="#" class="btn btn-primary btn-block mt-2">Complete Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

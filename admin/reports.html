@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobConnect - Reports</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #f8f9fc;
+            --accent-color: #2e59d9;
+            --dark-color: #5a5c69;
+        }
+        
+        body {
+            background-color: var(--secondary-color);
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .sidebar {
+            background: linear-gradient(180deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 5px;
+            border-radius: 5px;
+            padding: 10px 15px;
+        }
+        
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .sidebar .nav-link i {
+            margin-right: 10px;
+        }
+        
+        .topbar {
+            height: 70px;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            background-color: white;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        
+        .stat-card {
+            border-left: 4px solid var(--primary-color);
+        }
+           
+        .search-box {
+            border-radius: 20px;
+            padding-left: 20px;
+            border: 1px solid #e3e6f0;
+        }
+        
+        .search-btn {
+            border-radius: 20px;
+            padding: 8px 20px;
+        }
+        
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        
+        .stat-card {
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .stat-card .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .badge-new {
+            background-color: #e6f7ee;
+            color: #28a745;
+        }
+        
+        .badge-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 d-md-block sidebar collapse bg-primary">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <h4 class="text-white">JobConnect Admin</h4>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="dashboard.html">
+                                <i class="fas fa-fw fa-tachometer-alt"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="users.html">
+                                <i class="fas fa-fw fa-users"></i>
+                                Users
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="companies.html">
+                                <i class="fas fa-fw fa-building"></i>
+                                Companies
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="joblistings.html">
+                                <i class="fas fa-fw fa-briefcase"></i>
+                                Job Listings
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="reports.html">
+                                <i class="fas fa-fw fa-chart-bar"></i>
+                                Reports
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="settings.html">
+                                <i class="fas fa-fw fa-cog"></i>
+                                Settings
+                            </a>
+                        </li>
+                        <li class="nav-item mt-4">
+                            <a class="nav-link" href="../login.html">
+                                <i class="fas fa-fw fa-sign-out-alt"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- Topbar -->
+                <nav class="navbar topbar mb-4">
+                    <div class="container-fluid">
+                        <form class="d-flex w-50">
+                            <input class="form-control search-box me-2" type="search" placeholder="Search reports..." aria-label="Search">
+                            <button class="btn btn-primary search-btn" type="submit">Search</button>
+                        </form>
+                        <div class="d-flex align-items-center">
+                            <div class="dropdown me-3">
+                                <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-bell"></i>
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        3
+                                    </span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+                                    <li><a class="dropdown-item" href="#">New job postings</a></li>
+                                    <li><a class="dropdown-item" href="#">Expiring jobs</a></li>
+                                    <li><a class="dropdown-item" href="#">System alerts</a></li>
+                                </ul>
+                            </div>
+                            <div class="dropdown">
+                                <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Profile" class="profile-img me-2">
+                                    <span class="d-none d-md-inline">Admin</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Reports Content -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Job Listings Reports</h1>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="reportPeriodDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Last 30 Days
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="reportPeriodDropdown">
+                            <li><a class="dropdown-item" href="#">Last 7 Days</a></li>
+                            <li><a class="dropdown-item" href="#">Last 30 Days</a></li>
+                            <li><a class="dropdown-item" href="#">Last 90 Days</a></li>
+                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                            <li><a class="dropdown-item" href="#">Custom Range</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="row mb-4">
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card stat-card h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            Total Jobs Posted</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">1,248</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-briefcase fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card stat-card h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            Active Jobs</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">892</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card stat-card h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            Pending Approval</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">156</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-hourglass-half fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card stat-card h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            Featured Jobs</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">200</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-star fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="row">
+                    <div class="col-xl-8 col-lg-7">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Jobs Posted Over Time</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="jobsOverTimeChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-5">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Job Types Distribution</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="jobTypesChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Second Charts Row -->
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Top Companies by Job Postings</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="topCompaniesChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Job Status Breakdown</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="jobStatusChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Chart Scripts -->
+    <script>
+        // Jobs Over Time Chart
+        const jobsOverTimeCtx = document.getElementById('jobsOverTimeChart').getContext('2d');
+        const jobsOverTimeChart = new Chart(jobsOverTimeCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Jobs Posted',
+                    data: [65, 59, 80, 81, 56, 55, 40, 72, 88, 94, 102, 120],
+                    backgroundColor: 'rgba(78, 115, 223, 0.05)',
+                    borderColor: 'rgba(78, 115, 223, 1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(78, 115, 223, 1)',
+                    pointBorderColor: '#fff',
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: 'rgba(78, 115, 223, 1)',
+                    pointHoverBorderColor: '#fff',
+                    pointHitRadius: 10,
+                    pointBorderWidth: 2,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Job Types Chart
+        const jobTypesCtx = document.getElementById('jobTypesChart').getContext('2d');
+        const jobTypesChart = new Chart(jobTypesCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Full-time', 'Part-time', 'Contract', 'Internship'],
+                datasets: [{
+                    data: [55, 20, 15, 10],
+                    backgroundColor: ['#2c3e50', '#1cc88a', '#36b9cc', '#f6c23e'],
+                    hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf', '#dda20a'],
+                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                cutout: '70%',
+            }
+        });
+
+        // Top Companies Chart
+        const topCompaniesCtx = document.getElementById('topCompaniesChart').getContext('2d');
+        const topCompaniesChart = new Chart(topCompaniesCtx, {
+            type: 'bar',
+            data: {
+                labels: ['TechCorp', 'DesignHub', 'Finance Group', 'RetailCo', 'HealthPlus'],
+                datasets: [{
+                    label: 'Job Postings',
+                    data: [42, 35, 28, 22, 18],
+                    backgroundColor: ['#2c3e50', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b'],
+                    borderColor: ['#2c3e50', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Job Status Chart
+        const jobStatusCtx = document.getElementById('jobStatusChart').getContext('2d');
+        const jobStatusChart = new Chart(jobStatusCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Active', 'Pending', 'Expired', 'Featured'],
+                datasets: [{
+                    data: [65, 15, 10, 10],
+                    backgroundColor: ['#1cc88a', '#f6c23e', '#e74a3b', '#2c3e50'],
+                    hoverBackgroundColor: ['#17a673', '#dda20a', '#be2617', '#2e59d9'],
+                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Role - JobPortal</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .hero-section {
+            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), 
+                        url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        .hero-title {
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .hero-subtitle {
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+        .role-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 40px;
+            margin: 20px;
+            transition: transform 0.3s;
+            cursor: pointer;
+            text-align: center;
+        }
+        .role-card:hover {
+            transform: translateY(-5px);
+        }
+        .role-icon {
+            font-size: 3rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .role-title {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .role-description {
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">JobPortal</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="role-selection.html">Sign Up</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Role Selection Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">Join JobPortal Today</h1>
+            <p class="hero-subtitle">Select your role to get started</p>
+            
+            <div class="row justify-content-center">
+                <div class="col-md-5">
+                    <div class="role-card" onclick="window.location.href='jobseeker/signup.html'">
+                        <div class="role-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3 class="role-title">Job Seeker</h3>
+                        <p class="role-description">Looking for your next career opportunity? Create a profile and start applying to jobs that match your skills.</p>
+                        <button class="btn btn-primary" style="background-color: #2c3e50; border: none;">Continue as Job Seeker</button>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="role-card" onclick="window.location.href='employer/signup.html'">
+                        <div class="role-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3 class="role-title">Employer</h3>
+                        <p class="role-description">Hiring top talent? Create an employer account to post jobs and find qualified candidates.</p>
+                        <button class="btn btn-primary" style="background-color: #2c3e50; border: none;">Continue as Employer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

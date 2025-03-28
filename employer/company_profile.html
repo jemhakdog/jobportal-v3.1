@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobConnect - Company Profile</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #f8f9fc;
+            --accent-color: #2e59d9;
+            --dark-color: #5a5c69;
+        }
+        
+        body {
+            background-color: var(--secondary-color);
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .sidebar {
+            background: linear-gradient(180deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 5px;
+            border-radius: 5px;
+            padding: 10px 15px;
+        }
+        
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .sidebar .nav-link i {
+            margin-right: 10px;
+        }
+        
+        .topbar {
+            height: 70px;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            background-color: white;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+        }
+        
+        .company-logo {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        
+        .team-member-img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .job-card {
+            transition: all 0.3s ease;
+        }
+        
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.5rem 1.5rem 0 rgba(58, 59, 69, 0.2);
+        }
+        
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        
+        .stat-card {
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .stat-card .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 d-md-block sidebar collapse bg-primary">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <h4 class="text-white">JobConnect</h4>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="dashboard.html">
+                                <i class="fas fa-fw fa-tachometer-alt"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="job_posting.html">
+                                <i class="fas fa-fw fa-briefcase"></i>
+                                Job Postings
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="candidates.html">
+                                <i class="fas fa-fw fa-users"></i>
+                                Candidates
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="interviews.html">
+                                <i class="fas fa-fw fa-calendar"></i>
+                                Interviews
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-fw fa-bell"></i>
+                                Alerts
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="company_profile.html">
+                                <i class="fas fa-fw fa-building"></i>
+                                Company Profile
+                            </a>
+                        </li>
+                        <li class="nav-item mt-4">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-fw fa-sign-out-alt"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- Topbar -->
+                <nav class="navbar topbar mb-4">
+                    <div class="container-fluid">
+                        <form class="d-flex w-50">
+                            <input class="form-control search-box me-2" type="search" placeholder="Search..." aria-label="Search">
+                            <button class="btn btn-primary search-btn" type="submit">Search</button>
+                        </form>
+                        <div class="d-flex align-items-center">
+                            <div class="dropdown me-3">
+                                <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-bell"></i>
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        3
+                                    </span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+                                    <li><a class="dropdown-item" href="#">New applications</a></li>
+                                    <li><a class="dropdown-item" href="#">Interview requests</a></li>
+                                    <li><a class="dropdown-item" href="#">Messages</a></li>
+                                </ul>
+                            </div>
+                            <div class="dropdown">
+                                <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="profile-img me-2">
+                                    <span class="d-none d-md-inline">TechCorp Inc.</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="company_profile.html">Company Profile</a></li>
+                                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Company Profile</h1>
+                    <div>
+                        <button class="btn btn-primary me-2">
+                            <i class="fas fa-edit fa-sm text-white-50"></i> Edit Profile
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Company Overview -->
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <img src="https://via.placeholder.com/150" alt="Company Logo" class="company-logo mb-3">
+                                <h4>TechCorp Inc.</h4>
+                                <p class="text-muted">Technology Solutions Provider</p>
+                                <div class="d-flex justify-content-center mt-3">
+                                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="#" class="social-icon"><i class="fas fa-globe"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">About Us</h5>
+                                <p class="card-text">TechCorp Inc. is a leading technology solutions provider specializing in software development, cloud computing, and IT consulting services. Founded in 2010, we have grown to serve clients across multiple industries with innovative and reliable technology solutions.</p>
+                                
+                                <div class="row mt-4">
+                                    <div class="col-md-6">
+                                        <div class="stat-card p-3 mb-3">
+                                            <div class="stat-value">50+</div>
+                                            <div class="text-muted">Employees</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="stat-card p-3 mb-3">
+                                            <div class="stat-value">200+</div>
+                                            <div class="text-muted">Clients</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="stat-card p-3 mb-3">
+                                            <div class="stat-value">15</div>
+                                            <div class="text-muted">Countries</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="stat-card p-3 mb-3">
+                                            <div class="stat-value">10+</div>
+                                            <div class="text-muted">Years Experience</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Members -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Our Team</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4 mb-4">
+                                        <div class="text-center">
+                                            <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Team Member" class="team-member-img mb-3">
+                                            <h5>John Smith</h5>
+                                            <p class="text-muted">CEO & Founder</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="text-center">
+                                            <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Team Member" class="team-member-img mb-3">
+                                            <h5>Sarah Johnson</h5>
+                                            <p class="text-muted">CTO</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="text-center">
+                                            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Team Member" class="team-member-img mb-3">
+                                            <h5>Michael Chen</h5>
+                                            <p class="text-muted">Head of HR</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Current Job Openings -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Current Job Openings</h5>
+                                <a href="job_posting.html" class="btn btn-sm btn-primary">View All</a>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <!-- Job 1 -->
+                                    <div class="col-md-6 mb-4">
+                                        <div class="card job-card h-100">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Senior Software Developer</h5>
+                                                <p class="card-text text-muted">Full-time • Singapore</p>
+                                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                                    <span class="badge bg-primary">5 Applications</span>
+                                                    <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Job 2 -->
+                                    <div class="col-md-6 mb-4">
+                                        <div class="card job-card h-100">
+                                            <div class="card-body">
+                                                <h5 class="card-title">UX Designer</h5>
+                                                <p class="card-text text-muted">Full-time • Remote</p>
+                                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                                    <span class="badge bg-primary">12 Applications</span>
+                                                    <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

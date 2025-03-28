@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobConnect - Admin Settings</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #f8f9fc;
+            --accent-color: #2e59d9;
+            --dark-color: #5a5c69;
+        }
+        
+        body {
+            background-color: var(--secondary-color);
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .sidebar {
+            background: linear-gradient(180deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 5px;
+            border-radius: 5px;
+            padding: 10px 15px;
+        }
+        
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .sidebar .nav-link i {
+            margin-right: 10px;
+        }
+        
+        .topbar {
+            height: 70px;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            background-color: white;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .form-section h5 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .logo-preview {
+            width: 150px;
+            height: 150px;
+            border: 1px dashed #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+        }
+        
+        .logo-preview img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+           
+        .search-box {
+            border-radius: 20px;
+            padding-left: 20px;
+            border: 1px solid #e3e6f0;
+        }
+        
+        .search-btn {
+            border-radius: 20px;
+            padding: 8px 20px;
+        }
+        
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        
+        .stat-card {
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .stat-card .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .badge-new {
+            background-color: #e6f7ee;
+            color: #28a745;
+        }
+        
+        .badge-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 d-md-block sidebar collapse bg-primary">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <h4 class="text-white">JobConnect Admin</h4>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="dashboard.html">
+                                <i class="fas fa-fw fa-tachometer-alt"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="users.html">
+                                <i class="fas fa-fw fa-users"></i>
+                                Users
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="companies.html">
+                                <i class="fas fa-fw fa-building"></i>
+                                Companies
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="joblistings.html">
+                                <i class="fas fa-fw fa-briefcase"></i>
+                                Job Listings
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="reports.html">
+                                <i class="fas fa-fw fa-chart-bar"></i>
+                                Reports
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="settings.html">
+                                <i class="fas fa-fw fa-cog"></i>
+                                Settings
+                            </a>
+                        </li>
+                        <li class="nav-item mt-4">
+                            <a class="nav-link" href="../login.html">
+                                <i class="fas fa-fw fa-sign-out-alt"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- Topbar -->
+                <nav class="navbar topbar mb-4">
+                    <div class="container-fluid">
+                        <div class="d-flex align-items-center">
+                            <div class="dropdown me-3">
+                                <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-bell"></i>
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        5
+                                    </span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+                                    <li><a class="dropdown-item" href="#">New signups</a></li>
+                                    <li><a class="dropdown-item" href="#">Reported jobs</a></li>
+                                    <li><a class="dropdown-item" href="#">System alerts</a></li>
+                                </ul>
+                            </div>
+                            <div class="dropdown">
+                                <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Profile" class="profile-img me-2">
+                                    <span class="d-none d-md-inline">Admin</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                                    <li><a class="dropdown-item" href="settings.html">Settings</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Settings Content -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h4 class="m-0 font-weight-bold text-primary">System Settings</h4>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <!-- General Settings -->
+                            <div class="form-section">
+                                <h5>General Settings</h5>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="siteName" class="form-label">Site Name</label>
+                                        <input type="text" class="form-control" id="siteName" value="JobConnect">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="siteUrl" class="form-label">Site URL</label>
+                                        <input type="url" class="form-control" id="siteUrl" value="https://jobconnect.example.com">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="adminEmail" class="form-label">Admin Email</label>
+                                        <input type="email" class="form-control" id="adminEmail" value="admin@jobconnect.example.com">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="timezone" class="form-label">Timezone</label>
+                                        <select class="form-select" id="timezone">
+                                            <option value="UTC" selected>UTC</option>
+                                            <option value="America/New_York">America/New York</option>
+                                            <option value="Europe/London">Europe/London</option>
+                                            <option value="Asia/Singapore">Asia/Singapore</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Logo & Branding -->
+                            <div class="form-section">
+                                <h5>Logo & Branding</h5>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <div class="logo-preview">
+                                            <img src="https://via.placeholder.com/150" alt="Current Logo" id="logoPreview">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="logoUpload" class="form-label">Upload New Logo</label>
+                                            <input class="form-control" type="file" id="logoUpload" accept="image/*">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="primaryColor" class="form-label">Primary Color</label>
+                                        <input type="color" class="form-control form-control-color" id="primaryColor" value="#2c3e50">
+                                        <label for="secondaryColor" class="form-label mt-3">Secondary Color</label>
+                                        <input type="color" class="form-control form-control-color" id="secondaryColor" value="#f8f9fc">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Email Settings -->
+                            <div class="form-section">
+                                <h5>Email Settings</h5>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="smtpHost" class="form-label">SMTP Host</label>
+                                        <input type="text" class="form-control" id="smtpHost" value="smtp.example.com">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="smtpPort" class="form-label">SMTP Port</label>
+                                        <input type="number" class="form-control" id="smtpPort" value="587">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="smtpUsername" class="form-label">SMTP Username</label>
+                                        <input type="text" class="form-control" id="smtpUsername" value="noreply@example.com">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="smtpPassword" class="form-label">SMTP Password</label>
+                                        <input type="password" class="form-control" id="smtpPassword" placeholder="Enter password">
+                                    </div>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="smtpSecure" checked>
+                                    <label class="form-check-label" for="smtpSecure">
+                                        Use secure connection (TLS)
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Save Button -->
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-secondary me-2">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Save Settings</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Preview logo when file is selected
+        document.getElementById('logoUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    document.getElementById('logoPreview').src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
